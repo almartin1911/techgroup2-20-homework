@@ -62,38 +62,33 @@ public class LinkedListUtils {
     }
 
     public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
-        // STILL BUGGY. HONESTLY A RIP-OFF FROM HERE: https://www.geeksforgeeks.org/sublist-search-search-a-linked-list-in-another-list/
-        boolean result = false;
-        if (one != null && two != null) {
+        if (one != null && two != null && one.size() > 0 & two.size() > 0) {
             if (two.size() <= one.size()) {
-                int twoCursor = 0;
 
-                while (twoCursor < two.size()) {
-                    int twoCurrent = two.get(twoCursor);
-                    int oneCursor = 0;
+                for (int i = 0; i < one.size(); i++) {
+                    boolean result = true;
+                    int iTemp = i;
 
-                    while (oneCursor < one.size()) {
-                        if (twoCursor == two.size()) {
-                            return false;
-                        } else if (one.get(oneCursor) == twoCurrent) {
-                            oneCursor ++;
-                            twoCursor++;
-                        } else {
+                    for (int j = 0; j < two.size(); j++) {
+                        if (one.get(iTemp) != two.get(j)) {
+                            result = false;
                             break;
+                        } else {
+                            if (iTemp < one.size() - 1) {
+                                iTemp++;
+                            }
                         }
                     }
 
-                    if (oneCursor == one.size()) {
+                    if (result) {
                         return true;
                     }
-
-                    oneCursor = 0;
-                    twoCursor++;
                 }
+            } else {
+                return false;
             }
         }
 
-
-        return result; // this line is here only so this code will compile if you don't modify it
+        return false;
     }
 }
